@@ -1,5 +1,5 @@
 // Initialization of the app :
-//  console.log("hello world")
+// console.log("hello world")
 
 require('dotenv').config()
 
@@ -30,4 +30,9 @@ const db = mongoose.connection
 // Listener of the connexion
 db.once('open', () => {
   console.info('Connexion à la base : OK')
+})
+
+// Launch of the server
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`)
 })
