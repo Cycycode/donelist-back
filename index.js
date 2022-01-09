@@ -11,7 +11,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// const router = express.Router()
+const router = express.Router()
 
 // Port
 const port = process.env.PORT
@@ -31,6 +31,14 @@ const db = mongoose.connection
 db.once('open', () => {
   console.info('Connexion à la base : OK')
 })
+
+
+//? Router
+app.use(router)
+
+// Roads
+app.use('/auth', require('./routes/users/auth'))
+
 
 // Launch of the server
 app.listen(port, () => {
