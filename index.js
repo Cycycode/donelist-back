@@ -5,9 +5,17 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
+
+const loggerMiddleware = require('./middlewares/logger')
 
 // Initialization of Express
 const app = express()
+
+app.use(cors())
+
+app.use(loggerMiddleware)
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
@@ -32,12 +40,16 @@ db.once('open', () => {
   console.info('Connexion à la base : OK')
 })
 
+app.get('/', (req, res) => {
+  res.send('Coucou !')
+})
 
 //? Router
 app.use(router)
 
 // Roads
 app.use('/auth', require('./routes/users/auth'))
+app.use('/me', require('./routes/users'))
 
 
 // Launch of the server
